@@ -22,8 +22,34 @@ is broken, which may make it easier for you (or your PostgreSQL support
 provider) to understand what has gone wrong and explain the options for
 recovery.
 
-How Do I Run pg_catcheck?
-=========================
+How Do I Run pg_catcheck on the cloud?
+======================================
+This repo is a fork from the original pg_catcheck which is a C program compiled against the official postgres source tree.
+This fork allows running pg_catcheck on the cloud, namely [heroku](http://www.heroku.com) service, for 2 main reasons:
+
+- No need to download, compile postgres or pg_catcheck, which could be tricky on some systems. For example,
+the offcial Ubuntu adaptation removed fls.c from src/port which is used in pg_catcheck.
+- For heroku postgres service, super fast running time because it runs on the same infrastructure of the database server, reducing the time to do the check from minutes to several seconds.
+
+Fortunately, heroku gives free 750 dyno hours per month, so you will always do the checks for free, because there are no web dynos running.
+
+To check your own database, just clone this repo, deploy it to heroku, set database url and finally run the check:
+
+    # setup: do this only once
+    git clone https://github.com/hammady/pg_catcheck.git
+    cd pg_catcheck
+    heroku create --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
+    git push heroku master
+    
+    # set the database url and run the check
+    heroku config:set DATABASE_URL=postgres://username:password@host:port/databasename
+    heroku run ./check
+
+Before deploying, you need to create an account on heroku, if you don't already have one.
+To get the database url for any of your heroku applications, run `heroku config:get DATABASE_URL` inside your heroku app folder.
+
+How Do I Run pg_catcheck on my machine?
+=======================================
 
 pg_catcheck takes the same arguments as most other PostgreSQL utilites,
 such as -h for the host or -p for the port.  You can also pass it a
