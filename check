@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+url = ENV['DATABASE_URL']
+
+if url.nil? || url.strip.length == 0
+  puts "Must set DATABASE_URL environment variable first"
+  exit 1
+end
+
+require 'uri'
+url = URI.parse url
+host, port, user, password, db = url.host, url.port, url.user, url.password, url.path.delete('/')
+
+puts "Checking database defined by 'http://#{user}@#{host}:#{port}/#{db}'"
+system "PGPASSWORD='#{password}' ./pg_catcheck -h '#{host}' -U '#{user}' -p '#{port}' '#{db}'"
