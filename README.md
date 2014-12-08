@@ -29,7 +29,7 @@ This fork allows running pg_catcheck on the cloud, namely [heroku](http://www.he
 
 - No need to download, compile postgres or pg_catcheck, which could be tricky on some systems. For example,
 the offcial Ubuntu adaptation removed fls.c from src/port which is used in pg_catcheck.
-- For heroku postgres service, super fast running time because it runs on the same infrastructure of the database server, reducing the time to do the check from minutes to several seconds.
+- For postgres servers running on heroku (or any AWS-based servers), super fast running time because it runs on the same infrastructure of the database server, reducing the time to do the check from minutes to several seconds.
 
 Fortunately, heroku gives free 750 dyno hours per month, so you will always do the checks for free, because there are no web dynos running.
 
