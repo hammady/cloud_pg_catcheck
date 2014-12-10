@@ -36,7 +36,7 @@ Fortunately, heroku gives free 750 dyno hours per month, so you will always do t
 To check your own database, just clone this repo, deploy it to heroku, set database url and finally run the check:
 
     # setup: do this only once
-    git clone https://github.com/hammady/pg_catcheck.git
+    git clone https://github.com/hammady/cloud_pg_catcheck.git
     cd pg_catcheck
     heroku create --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
     git push heroku master
